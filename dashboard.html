@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brute-NetDefense Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard-bg">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <img src="{{ url_for('static', filename='img/shield.png') }}" alt="logo">
+            <span>Brute-NetDefense</span>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+            <a href="{{ url_for('live') }}">
+                Traffic Analysis
+            </a>
+
+            <a href="{{ url_for('alerts') }}">
+                Alert & Response
+            </a>
+            
+            <a href="{{ url_for('reports') }}">
+                Reports
+            </a>
+
+            <a href="{{ url_for('logout') }}" class="logout-link">
+                Logout
+            </a>
+        </nav>
+
+    </aside>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="dashboard-container">
+
+        <!-- HEADER -->
+        <div class="header">
+
+            <div>
+                <h1>Network Monitoring Dashboard</h1>
+            </div>
+
+        </div>
+
+        <!-- DASHBOARD GRID -->
+        <div class="dashboard-grid">
+
+            <!-- LEFT: LIVE TRAFFIC -->
+            <div class="card traffic-card">
+
+                <h2>Real-Time Detection Monitoring</h2>
+
+                <canvas id="trafficChart"></canvas>
+
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="right-column">
+
+                <!-- MONITORING SUMMARY -->
+                <div class="card stats-card small-summary">
+
+                    <h2>Monitoring Summary</h2>
+
+                    <div class="stats-box">
+
+                        <div class="stat-item">
+                            <h3 id="totalTraffic">0</h3>
+                            <p>Total Traffic</p>
+                        </div>
+
+                        <div class="stat-item danger">
+                            <h3 id="detectedAttacks">0</h3>
+                            <p>Brute Force</p>
+                        </div>
+
+                        <div class="stat-item warning">
+                            <h3 id="failedAttempts">0</h3>
+                            <p>Failed Login</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- MONITORING CONTROL -->
+                <div class="card control-card">
+
+                    <h2>Monitoring Control</h2>
+
+                    <div class="button-group">
+
+                        <a href="{{ url_for('start_monitoring') }}"
+                           class="start-btn">
+
+                            Start Monitoring
+
+                        </a>
+
+                        <a href="{{ url_for('stop_monitoring') }}"
+                           class="stop-btn">
+
+                            Stop Monitoring
+
+                        </a>
+
+                    </div>
+
+                    <!-- STATUS -->
+                    <div class="status">
+
+                        <span class="status-dot {% if monitoring_active %}active{% else %}stopped{% endif %}">
+                        </span>
+
+                        {% if monitoring_active %}
+
+                            <p>Monitoring Status: Running</p>
+
+                        {% else %}
+
+                            <p>Monitoring Status: Stopped</p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- END RIGHT COLUMN -->
+
+        </div>
+        <!-- END DASHBOARD GRID -->
+
+    </main>
+    <!-- END MAIN -->
+
+</div>
+<!-- END BACKGROUND -->
+
+<script>
+    const monitoringActive = "{{ monitoring_active }}" === "True";
+</script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>

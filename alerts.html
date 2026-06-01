@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alert & Response - Brute-NetDefense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/alerts.css') }}">
+</head>
+<body>
+
+<div class="alert-bg">
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="{{ url_for('static', filename='img/shield.png') }}" alt="logo">
+            <span>Brute-NetDefense</span>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('live') }}">Traffic Analysis</a>
+            <a href="{{ url_for('alerts') }}" class="active">Alert & Response</a>
+            <a href="{{ url_for('reports') }}">Reports</a>
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="alert-container">
+
+        <div class="header">
+            <h1>Alert & Response</h1>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card critical">
+                <h2 id="criticalCount">{{ critical_count }}</h2>
+                <p>Critical Alerts</p>
+            </div>
+
+            <div class="summary-card high">
+                <h2 id="highCount">{{ high_count }}</h2>
+                <p>High Priority</p>
+            </div>
+
+            <div class="summary-card low">
+                <h2 id="lowCount">{{ low_count }}</h2>
+                <p>Low Priority</p>
+            </div>
+
+            <div class="summary-card total">
+               <h2 id="totalCount">{{ total_count }}</h2>
+                <p>Total Alerts</p>
+            </div>
+        </div>
+
+       <div class="filter-card">
+            <form method="GET" action="{{ url_for('alerts') }}">
+                <label>Severity Level:</label>
+
+                <select name="severity" onchange="this.form.submit()">
+                    <option value="all" {% if selected_severity == 'all' %}selected{% endif %}>All Level</option>
+                    <option value="CRITICAL" {% if selected_severity == 'CRITICAL' %}selected{% endif %}>Critical</option>
+                    <option value="HIGH" {% if selected_severity == 'HIGH' %}selected{% endif %}>High Priority</option>
+                    <option value="LOW" {% if selected_severity == 'LOW' %}selected{% endif %}>Low Priority</option>
+                </select>
+            </form>
+        </div>
+        {% if response_message %}
+        <div class="response-message">
+            {{ response_message }}
+        </div>
+        {% endif %}
+        <div class="alerts-list-card">
+
+            <div class="alerts-list-header">
+                <h2>Latest Alert List</h2>
+
+                <a href="{{ url_for('export_response_logs') }}" class="export-btn">
+                    Export List
+                 </a>
+            </div>
+
+            <div class="alerts-list" id="alertsList">
+
+                {% for alert in alerts %}
+                <div class="alert-item {{ alert.severity|lower }}">
+                    <div>
+                        <span class="severity-badge {{ alert.severity|lower }}">
+                            {{ alert.severity }}
+                        </span>
+
+                        <h3>{{ alert.attack }}</h3>
+
+                        <p>
+                            Detected suspicious activity from
+                            <strong>{{ alert.ip }}</strong>
+                        </p>
+
+                        <small>
+                            Time: {{ alert.time }}
+                        </small>
+                    </div>
+
+                    <div class="response-actions">
+                        <form method="POST" action="{{ url_for('respond_alert', ip=alert.ip) }}">
+                             <button type="submit" class="respond-btn">Block IP</button>
+                        </form>
+
+                        <form method="POST" action="{{ url_for('unblock_ip', ip=alert.ip) }}">
+                            <button type="submit" class="unblock-btn">Unblock IP</button>
+                        </form>
+                    </div>
+
+                </div>
+                {% else %}
+                <p class="empty-alert">No alerts available yet</p>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </main>
+
+</div>
+</html>

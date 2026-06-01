@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brute-NetDefense Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+
+<div class="page-bg">
+
+    <div class="login-card">
+
+        <div class="logo-circle">
+            <img src="{{ url_for('static', filename='img/shield.png') }}" alt="Brute-NetDefense Logo">
+        </div>
+
+        <h2 class="brand-name">Brute-NetDefense</h2>
+
+        <h1>Login to Your Account</h1>
+        <p class="subtitle">Secure access to monitoring dashboard</p>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit">Log In</button>
+            <p class="create-account-text">
+                Don't have an account yet?
+                <a href="{{ url_for('register') }}">Create account here</a>
+            </p>
+            
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+function openForgotPopup() {
+    document.getElementById("forgotPopup").style.display = "flex";
+}
+
+function closeForgotPopup() {
+    document.getElementById("forgotPopup").style.display = "none";
+}
+</script>
+
+</body>
+</html>

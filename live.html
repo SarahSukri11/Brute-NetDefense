@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Analysis - Brute-NetDefense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/live.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="traffic-bg">
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="{{ url_for('static', filename='img/shield.png') }}" alt="logo">
+            <span>Brute-NetDefense</span>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('live') }}" class="active">Traffic Analysis</a>
+            <a href="{{ url_for('alerts') }}">Alert & Response</a>
+            <a href="{{ url_for('reports') }}">Reports</a>
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="traffic-container">
+
+        <div class="header">
+            <div>
+                <h1>Traffic Analysis</h1>
+            </div>
+        </div>
+        
+        
+        <div class="traffic-card">
+            <div class="card-header">
+                <h2>Network Traffic Overview</h2>
+            </div>
+
+            <canvas id="trafficAnalysisChart"></canvas>
+        </div>
+
+        <div class="table-card">
+            <div class="card-header">
+                <h2>Live Traffic Records</h2>
+                <a href="{{ url_for('export_traffic_logs') }}" class="export-btn">Export Records</a>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Source IP</th>
+                        <th>Destination IP</th>
+                        <th>Destination Port</th>
+                        <th>Protocol</th>
+                        <th>Failed Attempt</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="trafficTableBody">
+                    {% for traffic in traffic_data %}
+                    <tr>
+                        <td>{{ traffic.time }}</td>
+                        <td>{{ traffic.src_ip }}</td>
+                        <td>{{ traffic.dst_ip }}</td>
+                        <td>{{ traffic.dst_port }}</td>
+                        <td>{{ traffic.protocol }}</td>
+                        <td>{{ traffic.failed_attempt }}</td>
+                        <td>
+                            <span class="badge {{ traffic.status|lower }}">
+                                {{ traffic.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="empty-row">No traffic data yet</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/live.js') }}"></script>
+
+</body>
+</html>

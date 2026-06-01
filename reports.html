@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports - Brute-NetDefense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-bg">
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="{{ url_for('static', filename='img/shield.png') }}" alt="logo">
+            <span>Brute-NetDefense</span>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('live') }}">Traffic Analysis</a>
+            <a href="{{ url_for('alerts') }}">Alert & Response</a>
+            <a href="{{ url_for('reports') }}">Reports</a>
+            <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-container">
+
+        <div class="header">
+            <h1>Security Reports</h1>
+        </div>
+
+        <div class="report-panel card">
+
+            <div class="report-top">
+                <form method="GET" action="{{ url_for('reports') }}" class="report-filter">
+                    <label>Select Report Type:</label>
+
+                    <select name="type" onchange="this.form.submit()">
+                        <option value="weekly" {% if report_type == 'weekly' %}selected{% endif %}>
+                            Weekly Report
+                        </option>
+
+                        <option value="monthly" {% if report_type == 'monthly' %}selected{% endif %}>
+                            Monthly Report
+                        </option>
+                    </select>
+                </form>
+
+                <a class="export-report-btn" href="{{ url_for('export_report', report_type=report_type) }}">
+                    Generate CSV Report
+                </a>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Report Period</th>
+                            <th>Total Traffic Records</th>
+                            <th>Failed Login Attempts</th>
+                            <th>Brute Force Attacks</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% if reports %}
+                            {% for report in reports %}
+                            <tr>
+                                <td>{{ report.period }}</td>
+                                <td>{{ report.total_traffic }}</td>
+                                <td>{{ report.failed_login }}</td>
+                                <td>{{ report.brute_force }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="empty-row">No report data available.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

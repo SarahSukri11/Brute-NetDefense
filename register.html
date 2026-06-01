@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account - Brute-NetDefense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+
+<body>
+
+<div class="register-bg">
+
+    <div class="register-card">
+
+        <h1>Create Account</h1>
+        <p class="subtitle">Register a new Brute-NetDefense user account</p>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        {% if success %}
+            <div class="success-message">{{ success }}</div>
+        {% endif %}
+
+        <form method="POST">
+
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <p class="password-note">
+                Password must be at least 8 characters and contain letters and numbers.
+            </p>
+
+            <button type="submit">Create Account</button>
+
+        </form>
+
+        <a href="{{ url_for('login') }}" class="back-link">Back to Login</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

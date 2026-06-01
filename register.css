@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.register-bg {
+    width: 100%;
+    height: 100vh;
+    background:
+        linear-gradient(rgba(255,255,255,0.08), rgba(255,255,255,0.08)),
+        url("../img/loginbg.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card {
+    width: 430px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(18px);
+    border-radius: 26px;
+    padding: 34px;
+    box-shadow: 0 25px 60px rgba(0, 35, 90, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.register-card h1 {
+    color: #10213f;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    color: #52657f;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+
+.register-card label {
+    display: block;
+    color: #10213f;
+    font-weight: 800;
+    margin-bottom: 7px;
+}
+
+.register-card input {
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 14px;
+    border: none;
+    outline: none;
+    background: rgba(238, 245, 255, 0.95);
+    margin-bottom: 15px;
+    color: #10213f;
+    font-weight: 700;
+}
+
+.password-note {
+    color: #52657f;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.register-card button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0b66d8, #003b8e);
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.back-link {
+    display: block;
+    margin-top: 18px;
+    text-align: center;
+    color: #0b66d8;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 11px;
+    border-radius: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.success-message {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 11px;
+    border-radius: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
