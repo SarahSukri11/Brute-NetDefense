@@ -64,11 +64,7 @@ CSS, JavaScript, and image resources.
 
 
 Dataset Download:
-1. Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX
-https://drive.google.com/file/d/1VfaUQBUNpBQVjSNNq_Ii4YdoIkgJAkmX/view?usp=sharing
-2. Tuesday-WorkingHours.pcap_ISCX.csv
-https://drive.google.com/file/d/1N3LvqfeNjVW3xmIoAuBlMkmnpT6EHHZd/view?usp=sharing
-3. login_behavior_dataset.csv
+1. login_behavior_dataset.csv
 https://drive.google.com/file/d/1I-XNawgRpYfGO7gUBkzNqc2xj2bWyoEl/view?usp=sharing
 
 
