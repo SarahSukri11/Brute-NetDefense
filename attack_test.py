@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 import random
 
-BASE_URL = "http://127.0.0.1:5000"
+BASE_URL = "https://brute.sneakyturtle.my"
 
 normal_ips = [
     "192.168.1.10",
@@ -29,7 +29,7 @@ def send_normal_traffic():
     }
 
     response = requests.post(f"{BASE_URL}/save_traffic", json=data)
-    print("[NORMAL]", data["src_ip"], response.json())
+    print("[NORMAL]", data["src_ip"], response.status_code, response.text[:100])
 
 
 def send_brute_force_traffic():
@@ -56,7 +56,12 @@ def send_brute_force_traffic():
     traffic_response = requests.post(f"{BASE_URL}/save_traffic", json=traffic_data)
     alert_response = requests.post(f"{BASE_URL}/alert", json=alert_data)
 
-    print("[BRUTE FORCE]", attacker_ip, traffic_response.json(), alert_response.json())
+    print(
+        "[BRUTE FORCE]",
+        attacker_ip,
+        traffic_response.status_code,
+        alert_response.status_code
+    )
 
 
 print("Starting Brute-NetDefense traffic simulation...")
